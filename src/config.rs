@@ -12,7 +12,8 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Config {
-            interval: 60, // 1 minute in seconds
+            interval: 60, //  1 minute
+            // Default log path and API URL
             log_path: "locations.jsonl".into(),
             api_url: "http://ip-api.com/json".into(),
         }
