@@ -239,7 +239,7 @@ On Windows, use `del locations.jsonl` in Command Prompt or `Remove-Item location
 
 Contributions, issues, and feature requests are highly welcome\! If you have ideas for improvements, encounter bugs, or want to add new functionalities, please feel free to:
 
-  * **Report Issues**: Use the [GitHub issues page](https://www.google.com/search?q=https://github.com/Janmesh23/locust/issues) to report any bugs or suggest new features.
+  * **Report Issues**: Use the [GitHub issues page](https://github.com/Janmesh23/locust/issues) to report any bugs or suggest new features.
   * **Submit Pull Requests**: If you've implemented a fix or a new feature, feel free to open a pull request.
 
 -----
@@ -248,7 +248,7 @@ Contributions, issues, and feature requests are highly welcome\! If you have ide
 
 **Developed by Janmesh**
 
-  * GitHub Profile: [https://github.com/Janmesh23](https://www.google.com/search?q=https://github.com/Janmesh23)
-  * Project Repository: [https://github.com/Janmesh23/locust](https://www.google.com/search?q=https://github.com/Janmesh23/locust)
+  * GitHub Profile: [https://github.com/Janmesh23](https://github.com/Janmesh23)
+  * Project Repository: [https://github.com/Janmesh23/locust](https://github.com/Janmesh23/locust)
 
 -----
