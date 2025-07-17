@@ -68,6 +68,64 @@ pub fn list_logs() {
 }
 
 pub fn generate_map() -> std::io::Result<()> {
-    println!("Map command not yet implemented.");
-    Ok(())
+    let config = load_config();
+    let content = std::fs::read_to_string(&config.log_path)?; // Read the entire log file
+    let mut points = vec![]; // Initialize an empty vector to store map points
+
+    // Process each line in the log file
+    for line in content.lines() {
+        if let Ok(loc) = serde_json::from_str::<LocationEntry>(line) {
+            // Format each location as "[latitude, longitude]" for Leaflet.heat
+            points.push(format!("[{}, {}]", loc.lat, loc.lon));
+        }
+    }
+
+    // Join all formatted points with a comma and newline for clean HTML embedding
+    let points_str = points.join(",\n");
+
+    // Construct the full HTML content with embedded Leaflet.js and Leaflet.heat.js
+    let html = format!(
+        r#"<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Locust Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style> #map {{ height: 100vh; }} </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script>
+        // Initialize the map, centered at [0,0] with zoom level 2
+        var map = L.map('map').setView([0, 0], 2);
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+            maxZoom: 18,
+            attribution: '© OpenStreetMap contributors' // Add attribution for good practice
+        }}).addTo(map);
+
+        // Define the heatmap data points
+        var heat = L.heatLayer([
+            {} // This placeholder will be replaced by points_str
+        ], {{radius: 25}}).addTo(map);
+
+        // Optional: Fit map bounds to the heatmap data (if points exist)
+        if (heat.getLatLngs().length > 0) {{
+            map.fitBounds(heat.getLatLngs());
+        }}
+    </script>
+</body>
+</html>"#,
+        points_str
+    );
+
+    // Create a 'map' directory if it doesn't exist
+    std::fs::create_dir_all("map")?;
+    // Write the HTML content to 'map/index.html'
+    std::fs::write("map/index.html", html)?;
+    // Open the generated HTML file in the default web browser
+    open::that("map/index.html")?;
+
+    Ok(()) // Indicate success
 }
