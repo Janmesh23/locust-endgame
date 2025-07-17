@@ -1,0 +1,16 @@
+# Rust
+/target/
+**/*.rs.bk
+*.lock
+
+# IDEs
+.idea/
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Application-specific
+/locations.jsonl
+/map/
