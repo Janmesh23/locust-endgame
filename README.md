@@ -235,6 +235,51 @@ On Windows, use `del locations.jsonl` in Command Prompt or `Remove-Item location
 
 -----
 
+📱 Mobile Usage (Android via Termux)
+Locust, being a command-line application built with Rust, can also be run on Android mobile devices using a terminal emulator like Termux. This is the most effective way to track your phone's actual movement and its changing public IP address, as the Locust instance running on the phone will naturally query its own current location.
+
+Steps to Use on Android (via Termux):
+Install Termux: Download and install the Termux app from F-Droid or the Google Play Store on your Android device.
+
+Install Rust and Cargo in Termux:
+Open Termux and run the following commands to install the necessary build tools and Rust:
+
+pkg update && pkg upgrade
+pkg install rust # This will install rustc and cargo
+
+This might take some time.
+
+Clone Locust Repository:
+Once Rust is installed, clone your Locust project from GitHub:
+
+git clone https://github.com/Janmesh23/locust.git
+cd locust
+
+Build and Run on Phone:
+Navigate into the locust directory in Termux and build the project:
+
+cargo build --release
+
+Then, you can run the commands just like on a desktop:
+
+cargo run -- start
+# ... (let it log for some time while you move around)
+# Ctrl+C to stop
+cargo run -- list
+cargo run -- map
+
+Retrieve Logs for Visualization (on Desktop):
+The locations.jsonl and map/index.html will be created within the locust directory in your Termux file system. To view the map on a larger screen or combine logs:
+
+You can use Termux's file system access (e.g., termux-setup-storage and then a file manager app) to copy locations.jsonl to your phone's accessible storage.
+
+Transfer this locations.jsonl file to your desktop machine.
+
+On your desktop, you can then replace your local locations.jsonl with the one from your phone, or combine them, and run cargo run -- map to visualize your phone's tracked path.
+
+Note for iOS Users: Directly running custom Rust binaries like Locust on iOS devices is significantly more complex and typically requires advanced development setups or jailbreaking, making it generally impractical for this use case.
+
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are highly welcome\! If you have ideas for improvements, encounter bugs, or want to add new functionalities, please feel free to:
